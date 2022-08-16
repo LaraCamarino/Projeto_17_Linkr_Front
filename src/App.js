@@ -9,7 +9,13 @@ import Timeline from "./pages/Timeline/Timeline.js";
 import UserPage from "./pages/UserPage/UserPage.js";
 
 export default function App() {
-    const [userPicture, setUserPicture] = useState();
+
+    const pictureLocalStorage = JSON.parse(localStorage.getItem("picture") || "[]");
+    const [userPicture, setUserPicture] = useState(pictureLocalStorage);
+
+	useEffect(() => {
+		localStorage.setItem("picture", JSON.stringify(userPicture));
+	}, [userPicture]);
 
     return (
         <UserContext.Provider value={{ userPicture, setUserPicture }}>
