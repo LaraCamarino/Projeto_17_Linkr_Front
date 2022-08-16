@@ -7,6 +7,7 @@ import { HeaderContainer, Logo, Box, Image, LogoutBox, Logout, Text } from "./st
 
 export default function Header() {
     const navigate = useNavigate();
+    const profile = "https://i.pinimg.com/474x/49/ce/d2/49ced2e29b6d4945a13be722bac54642.jpg";
 
     const [openBox, setOpenBox] = useState(false);
 
@@ -40,7 +41,7 @@ export default function Header() {
                     {
                         !openBox ? <IoChevronDownOutline/> : <IoChevronUpOutline />
                     }
-                    <Image src="https://i.pinimg.com/474x/49/ce/d2/49ced2e29b6d4945a13be722bac54642.jpg" />
+                    <Image src={profile} />
                 </Box>
             </HeaderContainer>
             <LogoutBox open={openBox}>
