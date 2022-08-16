@@ -6,22 +6,21 @@ import { TbTrash } from "react-icons/tb/index.js";
 
 import { PostContainer, LeftSide, ProfileImageBox, ProfileImage, LikesBox, LikesCount, RightSide, Top, Name, Icons, Middle, Hashtags, Bottom, LinkBox, LinkTittle, LinkDescription, Link, LinkImage, EditBox } from "./styles.js";
 
-export default function Post() {
+export default function Post({ username, userText }) {
     const profile = "https://i.pinimg.com/474x/49/ce/d2/49ced2e29b6d4945a13be722bac54642.jpg";
 
-    const [postWasLiked, setPostWasLiked] = useState(true);
+    const [postWasLiked, setPostWasLiked] = useState(false);
     const [openEditBox, setOpenEditBox] = useState(false);
     const [loading, setLoading] = useState(false);
 
     let originalDescription = "Testing...";
     const [newDescription, setNewDescription] = useState(originalDescription);
 
-
     function focusOnTextareaEnd(event) {
         let text = event.target.value;
         event.target.value = '';
         event.target.value = text;
-    }
+    }   
 
     return (
         <>
@@ -53,7 +52,7 @@ export default function Post() {
                             !openEditBox ?
                                 originalDescription
                                 :
-                                <EditBox type="text" value={newDescription} onChange={(e) => setNewDescription(e.target.value)} autoFocus onFocus={focusOnTextareaEnd} disabled={loading}></EditBox>
+                                <EditBox type="text" disabled={loading} value={newDescription} onChange={(e) => setNewDescription(e.target.value)} autoFocus onFocus={focusOnTextareaEnd} ></EditBox>
                         }
                         <Hashtags> #react #material</Hashtags>
                     </Middle>

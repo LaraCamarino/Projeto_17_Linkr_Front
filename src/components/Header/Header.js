@@ -1,12 +1,15 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoChevronDownOutline, IoChevronUpOutline } from "react-icons/io5";
+
+import UserContext from "../../contexts/UserContext.js";
 
 import { HeaderContainer, Logo, Box, Image, LogoutBox, Logout, Text } from "./styles.js";
 
 export default function Header() {
     const navigate = useNavigate();
+    const { userPicture } = useContext(UserContext);
     const profile = "https://i.pinimg.com/474x/49/ce/d2/49ced2e29b6d4945a13be722bac54642.jpg";
 
     const [openBox, setOpenBox] = useState(false);
@@ -41,7 +44,7 @@ export default function Header() {
                     {
                         !openBox ? <IoChevronDownOutline/> : <IoChevronUpOutline />
                     }
-                    <Image src={profile} />
+                    <Image src={userPicture} />
                 </Box>
             </HeaderContainer>
             <LogoutBox open={openBox}>

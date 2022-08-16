@@ -9,8 +9,10 @@ import Timeline from "./pages/Timeline/Timeline.js";
 import UserPage from "./pages/UserPage/UserPage.js";
 
 export default function App() {
+    const [userPicture, setUserPicture] = useState();
+
     return (
-        <UserContext.Provider value={{  }}>
+        <UserContext.Provider value={{ userPicture, setUserPicture }}>
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<SignInPage />} />

@@ -1,12 +1,15 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
+
+import UserContext from "./../../contexts/UserContext.js";
 
 import { Page, LeftSide, RightSide, Input, Button, SignUpLink } from "./styles.js";
 import { ThreeDots } from "react-loader-spinner";
 
 export default function SignInPage() {
     const navigate = useNavigate();
+    const { setUserPicture } = useContext(UserContext);
 
     const [loading, setLoading] = useState(false);
     const [login, setLogin] = useState({
@@ -44,7 +47,8 @@ export default function SignInPage() {
         const promise = axios.post(URL, login);
 
         promise.then(res => {
-            localStorage.setItem("token", (res.data));
+            localStorage.setItem("token", (res.data.token));
+            setUserPicture(res.data.userPicture);
             navigate("/timeline");
         });
         promise.catch(err => {
