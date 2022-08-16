@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoChevronDownOutline, IoChevronUpOutline } from "react-icons/io5";
 
@@ -10,7 +10,6 @@ import { HeaderContainer, Logo, Box, Image, LogoutBox, Logout, Text } from "./st
 export default function Header() {
     const navigate = useNavigate();
     const { userPicture } = useContext(UserContext);
-    const profile = "https://i.pinimg.com/474x/49/ce/d2/49ced2e29b6d4945a13be722bac54642.jpg";
 
     const [openBox, setOpenBox] = useState(false);
 
@@ -28,6 +27,7 @@ export default function Header() {
 
         promise.then(res => {
             localStorage.removeItem("token");
+            localStorage.removeItem("picture");
             alert("User logged out successfully.");
             navigate("/");
         });
@@ -36,11 +36,25 @@ export default function Header() {
         });
     }
 
+    const boxRef = useRef();
+    
+    useEffect(() => {
+        function closeDropDown(event) {
+            if (event.path[0] !== boxRef.current) {
+                setOpenBox(false);
+            }
+        }
+        document.body.addEventListener("click", closeDropDown);
+
+        return () => { document.body.removeEventListener("click", closeDropDown) }
+    }, []);
+
+
     return (
         <>
             <HeaderContainer>
                 <Logo> linkr </Logo>
-                <Box onClick={() => setOpenBox(!openBox)}>
+                <Box ref={boxRef} onClick={() => setOpenBox(!openBox)}>
                     {
                         !openBox ? <IoChevronDownOutline/> : <IoChevronUpOutline />
                     }

@@ -21,6 +21,10 @@ export const Box = styled.section`
     align-items: center;
     color: white;
     font-size: 25px;
+
+    img, svg {
+        pointer-events: none;
+    }
 `
 
 export const Image = styled.img`
