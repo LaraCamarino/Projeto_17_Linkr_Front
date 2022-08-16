@@ -22,6 +22,7 @@ export default function Timeline() {
 
         promise.then((res) => {
             setPosts(res.data);
+            console.log(res.data)
         });
         promise.catch((err) => console.log(err.response.data));
     }
@@ -37,7 +38,7 @@ export default function Timeline() {
         if(posts) {
             return (
                 <>{
-                    posts.map((post, index) => <Post key={index} />)
+                    posts.map((post, index) => <Post key={index} id={post.postId} username={post.username} text={post.userText}/>)
                 }</>
             )
         }
