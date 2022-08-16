@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import { Page, LeftSide, RightSide, Input, Button, SignInLink } from "./styles.js";
-import { ThreeDots } from 'react-loader-spinner';
+import { ThreeDots } from "react-loader-spinner";
 
 export default function SignUpPage() {
     const navigate = useNavigate();
