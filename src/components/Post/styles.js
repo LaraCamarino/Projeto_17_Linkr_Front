@@ -125,3 +125,16 @@ export const LinkImage = styled.img`
     width: 35%;
     border-radius: 0px 10px 10px 0px;
 `
+
+export const EditBox = styled.textarea`
+    width: 100%;
+    background-color: #EFEFEF;
+    border-radius: 5px;
+    border: 1px solid #EFEFEF;
+    color: #4C4C4C;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: 'Lato', sans-serif;
+    padding: 5px 10px;
+    resize: none;
+`
