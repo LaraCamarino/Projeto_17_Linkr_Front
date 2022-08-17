@@ -42,7 +42,7 @@ export default function Timeline() {
         if (error) {
             return (
                 <>
-                    <Text>{error}</Text>
+                    <Text>An error occured while trying to fetch the posts, please refresh the page.</Text>
                 </>
             )
         }

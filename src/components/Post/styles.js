@@ -29,6 +29,7 @@ export const ProfileImage = styled.img`
     width: 50px;
     height: 50px;
     border-radius: 26.5px;
+    cursor: pointer;
 `
 
 export const LikesBox = styled.div`
@@ -61,6 +62,7 @@ export const Name = styled.h1`
     color: #FFFFFF;
     font-size: 19px;
     font-weight: 400;
+    cursor: pointer;
 `
 
 export const Icons = styled.div`

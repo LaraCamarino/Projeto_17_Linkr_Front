@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { IoHeartOutline, IoHeart, IoRadio } from "react-icons/io5";
 import { TiPencil } from "react-icons/ti/index.js";
 import { TbTrash } from "react-icons/tb/index.js";
@@ -11,6 +12,7 @@ import { PostContainer, LeftSide, ProfileImageBox, ProfileImage, LikesBox, Likes
 
 export default function Post({ id, username, userPicture, text, likesCount, link, authorId, getAllPosts }) {
     const profile = "https://i.pinimg.com/474x/49/ce/d2/49ced2e29b6d4945a13be722bac54642.jpg";
+    const navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
     const [postWasLiked, setPostWasLiked] = useState(false);
@@ -100,7 +102,7 @@ export default function Post({ id, username, userPicture, text, likesCount, link
             <PostContainer>
                 <LeftSide>
                     <ProfileImageBox>
-                        <ProfileImage src={userPicture} />
+                        <ProfileImage src={userPicture} onClick={() => navigate(`/user/${authorId}`)}/>
                     </ProfileImageBox>
                     <LikesBox postWasLiked={postWasLiked}>
                         {
@@ -114,7 +116,7 @@ export default function Post({ id, username, userPicture, text, likesCount, link
                 </LeftSide>
                 <RightSide>
                     <Top>
-                        <Name>{username}</Name>
+                        <Name onClick={() => navigate(`/user/${authorId}`)}>{username}</Name>
                         <Icons>
                             {showIcons()}
                         </Icons>
