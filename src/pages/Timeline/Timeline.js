@@ -9,7 +9,7 @@ import Loading from "../../components/Loading/Loading";
 import { Page, Title, Text } from "./styles.js";
 
 export default function Timeline() {
-
+    
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [posts, setPosts] = useState([]);
@@ -67,7 +67,7 @@ export default function Timeline() {
 
     return (
         <>
-            <Header />
+            <Header/>
             <Page>
                 <Title>timeline</Title>
                 <PublishPost getAllPosts={getAllPosts} />

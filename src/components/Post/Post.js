@@ -1,14 +1,12 @@
 import axios from "axios";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { IoHeartOutline, IoHeart, IoRadio } from "react-icons/io5";
+import { IoHeartOutline, IoHeart } from "react-icons/io5";
 import { TiPencil } from "react-icons/ti/index.js";
 import { TbTrash } from "react-icons/tb/index.js";
-import Modal from "react-modal";
-
-import UserContext from "../../contexts/UserContext.js";
 
 import { PostContainer, LeftSide, ProfileImageBox, ProfileImage, LikesBox, LikesCount, RightSide, Top, Name, Icons, Middle, Hashtags, Bottom, LinkBox, LinkTittle, LinkDescription, Link, LinkImage, EditBox } from "./styles.js";
+import DeleteModal from "../Modal/DeleteModal.js";
 
 export default function Post({ id, username, userPicture, text, likesCount, link, authorId, getAllPosts }) {
     const profile = "https://i.pinimg.com/474x/49/ce/d2/49ced2e29b6d4945a13be722bac54642.jpg";
@@ -18,6 +16,9 @@ export default function Post({ id, username, userPicture, text, likesCount, link
     const [postWasLiked, setPostWasLiked] = useState(false);
     const [openEditBox, setOpenEditBox] = useState(false);
     const [newText, setNewText] = useState(text);
+
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+
 
     function focusOnTextareaEnd(event) {
         let text = event.target.value;
@@ -62,23 +63,6 @@ export default function Post({ id, username, userPicture, text, likesCount, link
         }
     }
 
-    function deletePost(id) {
-        const URL = `http://localhost:5000/posts/delete/${id}`;
-        const token = localStorage.getItem("token");
-        const config = {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        };
-
-        if (window.confirm("Are you sure you want to delete this post?")) {
-            const promise = axios.delete(URL, config);
-            promise.then(() => getAllPosts());
-            promise.catch((err) => alert(err.response.data));
-        }
-
-    }
-
     function likePost(id) {
         setPostWasLiked(!postWasLiked);
     }
@@ -89,7 +73,7 @@ export default function Post({ id, username, userPicture, text, likesCount, link
             return (
                 <>
                     <TiPencil onClick={() => setOpenEditBox(!openEditBox)} />
-                    <TbTrash onClick={() => deletePost(id)} /></>
+                    <TbTrash onClick={() => setModalIsOpen(true)} /></>
             )
         }
         else {
@@ -102,7 +86,7 @@ export default function Post({ id, username, userPicture, text, likesCount, link
             <PostContainer>
                 <LeftSide>
                     <ProfileImageBox>
-                        <ProfileImage src={userPicture} onClick={() => navigate(`/user/${authorId}`)}/>
+                        <ProfileImage src={userPicture} onClick={() => navigate(`/user/${authorId}`)} />
                     </ProfileImageBox>
                     <LikesBox postWasLiked={postWasLiked}>
                         {
@@ -140,6 +124,9 @@ export default function Post({ id, username, userPicture, text, likesCount, link
                     </Bottom>
                 </RightSide>
             </PostContainer>
+            {
+                modalIsOpen ? <DeleteModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} postId={id} getAllPosts={getAllPosts} /> : <></>
+            }
         </>
     )
 }
