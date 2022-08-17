@@ -56,6 +56,7 @@ export const Top = styled.div`
     align-items: center;
     margin-bottom: 15px;
 `
+
 export const Name = styled.h1`
     color: #FFFFFF;
     font-size: 19px;
@@ -100,7 +101,10 @@ export const Bottom = styled.div`
 `
 
 export const LinkBox = styled.div`
-    padding: 20px;
+    width: 350px;
+    padding: 15px ;
+    overflow: hidden;
+    text-overflow: ellipsis;
 `
 
 export const LinkTittle = styled.h1`
@@ -113,6 +117,8 @@ export const LinkDescription = styled.p`
     font-size: 11px;
     font-weight: 400;
     color: #9B9595;
+    margin-top: 5px;
+    margin-bottom: 5px;
 `
 
 export const Link = styled.a`

@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 import Header from "../../components/Header/Header";
+import PublishPost from "../../components/PublishPost/PublishPost.js";
 import Post from "../../components/Post/Post";
 
 import { Page } from "./styles.js";
@@ -38,7 +39,7 @@ export default function Timeline() {
         if(posts) {
             return (
                 <>{
-                    posts.map((post, index) => <Post key={index} id={post.postId} username={post.username} text={post.userText}/>)
+                    posts.map((post, index) => <Post key={index} id={post.postId} username={post.username} userPicture={post.userPicture} text={post.text} likesCount={post.likesCount} link={post.link} getAllPosts={getAllPosts}/>)
                 }</>
             )
         }
@@ -50,6 +51,7 @@ export default function Timeline() {
             <Header />
             <Page>
                 Timeline
+                <PublishPost/>
                 {assemblePosts()}
             </Page>
         </>

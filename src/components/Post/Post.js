@@ -1,14 +1,15 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { IoHeartOutline, IoHeart } from "react-icons/io5";
 import { TiPencil } from "react-icons/ti/index.js";
 import { TbTrash } from "react-icons/tb/index.js";
+import Modal from "react-modal";
 
 import { PostContainer, LeftSide, ProfileImageBox, ProfileImage, LikesBox, LikesCount, RightSide, Top, Name, Icons, Middle, Hashtags, Bottom, LinkBox, LinkTittle, LinkDescription, Link, LinkImage, EditBox } from "./styles.js";
 
-export default function Post({ id, username, text }) {
+export default function Post({ id, username, userPicture, text, likesCount, link, getAllPosts }) {
     const profile = "https://i.pinimg.com/474x/49/ce/d2/49ced2e29b6d4945a13be722bac54642.jpg";
-    
+
     const [loading, setLoading] = useState(false);
     const [postWasLiked, setPostWasLiked] = useState(false);
     const [openEditBox, setOpenEditBox] = useState(false);
@@ -45,6 +46,7 @@ export default function Post({ id, username, text }) {
             promise.then(res => {
                 setLoading(false);
                 setOpenEditBox(false);
+                getAllPosts();
             });
             promise.catch(err => {
                 alert(err.response.data);
@@ -56,21 +58,42 @@ export default function Post({ id, username, text }) {
         }
     }
 
+    function deletePost(id) {
+        const URL = `http://localhost:5000/posts/delete/${id}`;
+        const token = localStorage.getItem("token");
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        };
+
+        if (window.confirm("Are you sure you want to delete this post?")) {
+            const promise = axios.delete(URL, config);
+            promise.then(() => getAllPosts());
+            promise.catch((err) => alert(err.response.data));
+        }
+
+    }
+
+    function likePost(id) {
+        setPostWasLiked(!postWasLiked);
+    }
+
     return (
         <>
             <PostContainer>
                 <LeftSide>
                     <ProfileImageBox>
-                        <ProfileImage src={profile} />
+                        <ProfileImage src={userPicture} />
                     </ProfileImageBox>
                     <LikesBox postWasLiked={postWasLiked}>
                         {
                             !postWasLiked ?
-                                <IoHeartOutline />
+                                <IoHeartOutline onClick={() => likePost(id)} />
                                 :
-                                <IoHeart />
+                                <IoHeart onClick={() => likePost(id)} />
                         }
-                        <LikesCount>5 likes</LikesCount>
+                        <LikesCount>{likesCount} likes</LikesCount>
                     </LikesBox>
                 </LeftSide>
                 <RightSide>
@@ -78,7 +101,7 @@ export default function Post({ id, username, text }) {
                         <Name>{username}</Name>
                         <Icons>
                             <TiPencil onClick={() => setOpenEditBox(!openEditBox)} />
-                            <TbTrash />
+                            <TbTrash onClick={() => deletePost(id)} />
                         </Icons>
                     </Top>
                     <Middle>
@@ -94,7 +117,7 @@ export default function Post({ id, username, text }) {
                         <LinkBox>
                             <LinkTittle>linkTitle</LinkTittle>
                             <LinkDescription>linkDescription</LinkDescription>
-                            <Link>link</Link>
+                            <Link>{link}</Link>
                         </LinkBox>
                         <LinkImage src={profile} />
                     </Bottom>
