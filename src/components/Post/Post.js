@@ -1,13 +1,15 @@
 import axios from "axios";
-import { useState } from "react";
-import { IoHeartOutline, IoHeart } from "react-icons/io5";
+import { useState, useContext } from "react";
+import { IoHeartOutline, IoHeart, IoRadio } from "react-icons/io5";
 import { TiPencil } from "react-icons/ti/index.js";
 import { TbTrash } from "react-icons/tb/index.js";
 import Modal from "react-modal";
 
+import UserContext from "../../contexts/UserContext.js";
+
 import { PostContainer, LeftSide, ProfileImageBox, ProfileImage, LikesBox, LikesCount, RightSide, Top, Name, Icons, Middle, Hashtags, Bottom, LinkBox, LinkTittle, LinkDescription, Link, LinkImage, EditBox } from "./styles.js";
 
-export default function Post({ id, username, userPicture, text, likesCount, link, getAllPosts }) {
+export default function Post({ id, username, userPicture, text, likesCount, link, authorId, getAllPosts }) {
     const profile = "https://i.pinimg.com/474x/49/ce/d2/49ced2e29b6d4945a13be722bac54642.jpg";
 
     const [loading, setLoading] = useState(false);
@@ -79,6 +81,20 @@ export default function Post({ id, username, userPicture, text, likesCount, link
         setPostWasLiked(!postWasLiked);
     }
 
+    function showIcons() {
+        const userId = parseInt(localStorage.getItem("userId"));
+        if (authorId === userId) {
+            return (
+                <>
+                    <TiPencil onClick={() => setOpenEditBox(!openEditBox)} />
+                    <TbTrash onClick={() => deletePost(id)} /></>
+            )
+        }
+        else {
+            <></>
+        }
+    }
+
     return (
         <>
             <PostContainer>
@@ -100,8 +116,7 @@ export default function Post({ id, username, userPicture, text, likesCount, link
                     <Top>
                         <Name>{username}</Name>
                         <Icons>
-                            <TiPencil onClick={() => setOpenEditBox(!openEditBox)} />
-                            <TbTrash onClick={() => deletePost(id)} />
+                            {showIcons()}
                         </Icons>
                     </Top>
                     <Middle>

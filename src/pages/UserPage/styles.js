@@ -24,9 +24,3 @@ export const Text = styled.h1`
     font-family: 'Oswald', sans-serif;
     margin-top: 55px;
 `
-
-export const LoadingBox = styled.div`
-    width: 50px;
-    height: 50px;
-    margin-top:15vh;
-`

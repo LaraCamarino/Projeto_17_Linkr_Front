@@ -16,3 +16,11 @@ export const Title = styled.h1`
     justify-content: flex-start;
     margin: 53px 0px 43px;
 `
+
+export const Text = styled.h1`
+    font-size: 25px;
+    font-weight: 400;
+    color: #c9c9c9;
+    font-family: 'Oswald', sans-serif;
+    margin-top: 55px;
+`

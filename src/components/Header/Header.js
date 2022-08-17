@@ -28,6 +28,7 @@ export default function Header() {
         promise.then(res => {
             localStorage.removeItem("token");
             localStorage.removeItem("picture");
+            localStorage.removeItem("userId");
             alert("User logged out successfully.");
             navigate("/");
         });

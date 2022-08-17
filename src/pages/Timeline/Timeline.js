@@ -4,10 +4,14 @@ import { useState, useEffect } from "react";
 import Header from "../../components/Header/Header";
 import PublishPost from "../../components/PublishPost/PublishPost.js";
 import Post from "../../components/Post/Post";
+import Loading from "../../components/Loading/Loading";
 
-import { Page, Title } from "./styles.js";
+import { Page, Title, Text } from "./styles.js";
 
 export default function Timeline() {
+
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
     const [posts, setPosts] = useState([]);
 
     function getAllPosts() {
@@ -20,27 +24,42 @@ export default function Timeline() {
         };
 
         const promise = axios.get(URL, config);
+        setLoading(true);
 
         promise.then((res) => {
             setPosts(res.data);
-            console.log(res.data)
+            setLoading(false);
         });
-        promise.catch((err) => console.log(err.response.data));
+        promise.catch((err) => {
+            setLoading(false);
+            setError(err.response.data);
+        });
     }
 
     useEffect(() => getAllPosts(), []);
 
     function assemblePosts() {
-        if (posts.length === 0) {
+        if (error) {
             return (
-                <>No posts yet.</>
+                <>
+                    <Text>{error}</Text>
+                </>
             )
         }
+
+        if (posts.length === 0) {
+            return (
+                <Text>There are no posts yet.</Text>
+            )
+        }
+
         if (posts) {
             return (
-                <>{
-                    posts.map((post, index) => <Post key={index} id={post.postId} username={post.username} userPicture={post.userPicture} text={post.text} likesCount={post.likesCount} link={post.link} getAllPosts={getAllPosts} />)
-                }</>
+                <>
+                    {
+                        posts.map((post, index) => <Post key={index} id={post.postId} username={post.username} userPicture={post.userPicture} text={post.text} likesCount={post.likesCount} link={post.link} authorId={post.userId} getAllPosts={getAllPosts} />)
+                    }
+                </>
             )
         }
 
@@ -48,11 +67,17 @@ export default function Timeline() {
 
     return (
         <>
-            <Header/>
+            <Header />
             <Page>
                 <Title>timeline</Title>
                 <PublishPost getAllPosts={getAllPosts} />
-                {assemblePosts()}
+                {
+                    loading ? <Loading />
+                        :
+                        <>
+                            {assemblePosts()}
+                        </>
+                }
             </Page>
         </>
     )
