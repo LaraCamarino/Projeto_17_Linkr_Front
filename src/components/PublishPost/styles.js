@@ -70,13 +70,14 @@ export const Input = styled.input`
 
 export const Textarea = styled.textarea`
     width: 100%;
-    height: 66px;
+    height: 70px;
     background-color: #EFEFEF;
     border-radius: 5px;
     border: 1px solid #EFEFEF;
     padding: 10px 0px 21px 5px;
     margin-bottom:6px;   
     font-family: 'Lato', sans-serif;
+    resize: none;
     
     ::placeholder {
         font-weight: 300;

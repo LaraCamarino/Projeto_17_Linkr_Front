@@ -5,7 +5,7 @@ import Header from "../../components/Header/Header";
 import PublishPost from "../../components/PublishPost/PublishPost.js";
 import Post from "../../components/Post/Post";
 
-import { Page } from "./styles.js";
+import { Page, Title } from "./styles.js";
 
 export default function Timeline() {
     const [posts, setPosts] = useState([]);
@@ -36,22 +36,22 @@ export default function Timeline() {
                 <>No posts yet.</>
             )
         }
-        if(posts) {
+        if (posts) {
             return (
                 <>{
-                    posts.map((post, index) => <Post key={index} id={post.postId} username={post.username} userPicture={post.userPicture} text={post.text} likesCount={post.likesCount} link={post.link} getAllPosts={getAllPosts}/>)
+                    posts.map((post, index) => <Post key={index} id={post.postId} username={post.username} userPicture={post.userPicture} text={post.text} likesCount={post.likesCount} link={post.link} getAllPosts={getAllPosts} />)
                 }</>
             )
         }
-        
+
     }
 
     return (
         <>
-            <Header />
+            <Header/>
             <Page>
-                Timeline
-                <PublishPost/>
+                <Title>timeline</Title>
+                <PublishPost getAllPosts={getAllPosts} />
                 {assemblePosts()}
             </Page>
         </>
