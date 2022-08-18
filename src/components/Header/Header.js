@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { IoChevronDownOutline, IoChevronUpOutline } from "react-icons/io5";
 
 import UserContext from "../../contexts/UserContext.js";
+import SearchBar from "../SearchBar/SearchBar.js";
 
 import { HeaderContainer, Logo, Box, Image, LogoutBox, Logout, Text } from "./styles.js";
 
@@ -55,6 +56,7 @@ export default function Header() {
         <>
             <HeaderContainer>
                 <Logo> linkr </Logo>
+                <SearchBar/>
                 <Box ref={boxRef} onClick={() => setOpenBox(!openBox)}>
                     {
                         !openBox ? <IoChevronDownOutline/> : <IoChevronUpOutline />

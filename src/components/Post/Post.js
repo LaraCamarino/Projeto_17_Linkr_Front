@@ -8,8 +8,8 @@ import { TbTrash } from "react-icons/tb/index.js";
 import { PostContainer, LeftSide, ProfileImageBox, ProfileImage, LikesBox, LikesCount, RightSide, Top, Name, Icons, Middle, Hashtags, Bottom, LinkBox, LinkTittle, LinkDescription, Link, LinkImage, EditBox } from "./styles.js";
 import DeleteModal from "../Modal/DeleteModal.js";
 
-export default function Post({ id, username, userPicture, text, likesCount, link, authorId, getAllPosts }) {
-    const profile = "https://i.pinimg.com/474x/49/ce/d2/49ced2e29b6d4945a13be722bac54642.jpg";
+export default function Post({ id, username, userPicture, text, likesCount, link, linkTitle, linkDescription, linkImage, authorId, getAllPosts }) {
+    
     const navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
@@ -95,7 +95,9 @@ export default function Post({ id, username, userPicture, text, likesCount, link
                                 :
                                 <IoHeart onClick={() => likePost(id)} />
                         }
-                        <LikesCount>{likesCount} likes</LikesCount>
+                        {
+                            likesCount ? <LikesCount>{likesCount} likes</LikesCount> : <></>
+                        }
                     </LikesBox>
                 </LeftSide>
                 <RightSide>
@@ -114,13 +116,13 @@ export default function Post({ id, username, userPicture, text, likesCount, link
                         }
                         <Hashtags> #react #material</Hashtags>
                     </Middle>
-                    <Bottom>
+                    <Bottom onClick={() => window.open(link)}>
                         <LinkBox>
-                            <LinkTittle>linkTitle</LinkTittle>
-                            <LinkDescription>linkDescription</LinkDescription>
+                            <LinkTittle>{linkTitle}</LinkTittle>
+                            <LinkDescription>{linkDescription}</LinkDescription>
                             <Link>{link}</Link>
                         </LinkBox>
-                        <LinkImage src={profile} />
+                        <LinkImage src={linkImage} />
                     </Bottom>
                 </RightSide>
             </PostContainer>

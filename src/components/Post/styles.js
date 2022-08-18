@@ -104,33 +104,46 @@ export const Bottom = styled.div`
 
 export const LinkBox = styled.div`
     width: 350px;
-    padding: 15px ;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+`
+
+export const LinkTittle = styled.h1`
+    max-height: 50px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #CECECE;
     overflow: hidden;
     text-overflow: ellipsis;
 `
 
-export const LinkTittle = styled.h1`
-    font-size: 16px;
-    font-weight: 400;
-    color: #CECECE;
-`
-
 export const LinkDescription = styled.p`
+    height: 40px;
     font-size: 11px;
     font-weight: 400;
     color: #9B9595;
     margin-top: 5px;
     margin-bottom: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 `
 
-export const Link = styled.a`
+export const Link = styled.p`
+    max-height: 20px;
     font-size: 11px;
     font-weight: 400;
     color: #CECECE;
+    margin-bottom: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 `
 
 export const LinkImage = styled.img`
-    width: 35%;
+    width: 30%;
     border-radius: 0px 10px 10px 0px;
 `
 
