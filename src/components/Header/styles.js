@@ -6,13 +6,14 @@ export const HeaderContainer = styled.header`
     padding: 10px 25px;
     display:flex;
     justify-content: space-between;
-    align-items: center;
 `
 
 export const Logo = styled.h1`
     font-family: 'Passion One', cursive;
     font-size: 45px;
     color: #FFFFFF;
+    display: flex;
+    align-items: center;
 `
 
 export const Box = styled.section`

@@ -108,7 +108,7 @@ export const LinkBox = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    
+    cursor: pointer;
 `
 
 export const LinkTittle = styled.h1`

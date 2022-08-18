@@ -55,7 +55,7 @@ export default function Header() {
     return (
         <>
             <HeaderContainer>
-                <Logo> linkr </Logo>
+                <Logo onClick={() => navigate("/timeline")}> linkr </Logo>
                 <SearchBar/>
                 <Box ref={boxRef} onClick={() => setOpenBox(!openBox)}>
                     {
