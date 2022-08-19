@@ -39,6 +39,10 @@ export const LikesBox = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    p {
+        color: white;
+    }
 `
 
 export const LikesCount = styled.p`

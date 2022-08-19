@@ -4,11 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { IoHeartOutline, IoHeart } from "react-icons/io5";
 import { TiPencil } from "react-icons/ti/index.js";
 import { TbTrash } from "react-icons/tb/index.js";
+import ReactTooltip from "react-tooltip";
 
 import { PostContainer, LeftSide, ProfileImageBox, ProfileImage, LikesBox, LikesCount, RightSide, Top, Name, Icons, Middle, Hashtags, Bottom, LinkBox, LinkTittle, LinkDescription, Link, LinkImage, EditBox } from "./styles.js";
 import DeleteModal from "../Modal/DeleteModal.js";
 
-export default function Post({ postId, username, userPicture, text, likesCount, link, linkTitle, linkDescription, linkImage, authorId, getAllPosts }) {
+export default function Post({ postId, username, userPicture, text, link, linkTitle, linkDescription, linkImage, authorId, getAllPosts }) {
 
     const navigate = useNavigate();
 
@@ -18,9 +19,11 @@ export default function Post({ postId, username, userPicture, text, likesCount, 
     const [postWasLiked, setPostWasLiked] = useState(false);
     const [openEditBox, setOpenEditBox] = useState(false);
     const [newText, setNewText] = useState(text);
-
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [likesData, setLikesData] = useState([]);
+    const [tooltip, setTooltip] = useState("");
 
+    let likesCount = likesData.length;
 
     function focusOnTextareaEnd(event) {
         let text = event.target.value;
@@ -80,13 +83,18 @@ export default function Post({ postId, username, userPicture, text, likesCount, 
             if (res.data.filter((item) => item.userId === userId).length) {
                 setPostWasLiked(true);
             }
+            else {
+                setPostWasLiked(false);
+            }
+            setLikesData(res.data);
+            createLikeTooltip(res.data);
         });
         promise.catch(err => {
             alert(err.response.data);
         })
     }
 
-    useEffect(() => getLikesByPostId(), []);
+    useEffect(() => getLikesByPostId(), [postWasLiked]);
 
     function likePost(postId) {
         const URL = "http://localhost:5000/likes";
@@ -104,7 +112,7 @@ export default function Post({ postId, username, userPicture, text, likesCount, 
         const promise = axios.post(URL, body, config);
 
         promise.then(res => {
-            setPostWasLiked(true);
+            getLikesByPostId();
         });
         promise.catch(err => {
             alert(err.response.data);
@@ -123,13 +131,12 @@ export default function Post({ postId, username, userPicture, text, likesCount, 
         const promise = axios.delete(URL, config);
 
         promise.then(res => {
-            setPostWasLiked(false);
+            getLikesByPostId();
         });
         promise.catch(err => {
             alert(err.response.data);
         })
     }
-
 
     function showIcons() {
         if (authorId === userId) {
@@ -142,6 +149,46 @@ export default function Post({ postId, username, userPicture, text, likesCount, 
         else {
             <></>
         }
+    }
+
+    function createLikeTooltip(data) {
+        console.log(data)
+        let text = "";
+        let likes = data.filter((item) => item.userId !== userId);
+
+        if (data.length === 0) {
+            text = "Nobody liked this post yet";
+        }
+        if (!postWasLiked) {
+            if (likes.length === 1) {
+                text = `${likes[0].username} liked this post`;
+            }
+            if (likes.length === 2) {
+                text = `${likes[0].username} and ${likes[1].username} liked this post`;
+            }
+            if (likes.length === 3) {
+                text = `${likes[0].username}, ${likes[1].username} and 1 other person`;
+            }
+            if (likes.length > 3) {
+                text = `${likes[0].username}, ${likes[1].username} and ${likes.length - 2} other people`;
+            }
+        }
+        if (postWasLiked) {
+            if (likes.length === 0) {
+                text = "You liked this post";
+            }
+            if (likes.length === 1) {
+                text = `You and ${likes[0].username} liked this post`
+            }
+            if (likes.length === 2) {
+                text = `You, ${likes[0].username} and 1 other person`
+            }
+            if (likes.length > 2) {
+                text = `You, ${likes[0].username} and ${likes.length - 1} other people`
+            }
+        }
+
+        setTooltip(text);
     }
 
     return (
@@ -159,7 +206,13 @@ export default function Post({ postId, username, userPicture, text, likesCount, 
                                 <IoHeart onClick={() => dislikePost(postId)} />
                         }
                         {
-                            likesCount ? <LikesCount>{likesCount} likes</LikesCount> : <></>
+                            likesCount > 0 ?
+                                <>
+                                    <LikesCount data-for="like" data-tip={tooltip}>{likesCount} likes</LikesCount>
+                                    <ReactTooltip id="like" place="bottom" type="light" effect="solid" delayHide={500}></ReactTooltip>
+                                </>
+                                :
+                                <></>
                         }
                     </LikesBox>
                 </LeftSide>
