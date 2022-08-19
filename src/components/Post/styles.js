@@ -43,6 +43,10 @@ export const LikesBox = styled.div`
     p {
         color: white;
     }
+
+    svg {
+        cursor: pointer;
+    }
 `
 
 export const LikesCount = styled.p`
@@ -70,14 +74,15 @@ export const Name = styled.h1`
 `
 
 export const Icons = styled.div`
-    width: 40px;
+    width: 57px;
     display: flex;
     justify-content: space-between;
     
     svg {
-        width: 20px;
-        height: 15px;
+        width: 25px;
+        height: 20px;
         color: #FFFFFF;
+        cursor: pointer;
     }
 `
 
@@ -104,6 +109,10 @@ export const Bottom = styled.div`
     border: 1px solid #FFFFFF;
     display: flex;
     justify-content: space-between;
+
+    @media (max-width: 600px) {
+        width: 100%;
+    }
 `
 
 export const LinkBox = styled.div`
@@ -113,6 +122,10 @@ export const LinkBox = styled.div`
     flex-direction: column;
     justify-content: space-between;
     cursor: pointer;
+
+    @media (max-width: 600px) {
+        width: 190px;
+    }
 `
 
 export const LinkTittle = styled.h1`
@@ -162,4 +175,5 @@ export const EditBox = styled.textarea`
     font-family: 'Lato', sans-serif;
     padding: 5px 10px;
     resize: none;
+    outline: none;
 `

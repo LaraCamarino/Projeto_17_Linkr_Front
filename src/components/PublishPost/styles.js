@@ -59,7 +59,8 @@ export const Input = styled.input`
     border: 1px solid #EFEFEF;
     padding: 6px 0px 8px 5px;
     margin-bottom: 5px;
-    font-family: 'Lato', sans-serif;   
+    font-family: 'Lato', sans-serif;
+    outline-color: black;
 
     ::placeholder {
         font-size: 15px;
@@ -78,6 +79,7 @@ export const Textarea = styled.textarea`
     margin-bottom:6px;   
     font-family: 'Lato', sans-serif;
     resize: none;
+    outline-color: black;
     
     ::placeholder {
         font-weight: 300;

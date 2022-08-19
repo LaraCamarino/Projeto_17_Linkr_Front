@@ -93,6 +93,7 @@ export const Input = styled.input`
     padding: 15px;
     margin-bottom: 13px;
 	transition: .2s;
+    outline-color: black;
 
     ::placeholder {
         color: #9F9F9F;

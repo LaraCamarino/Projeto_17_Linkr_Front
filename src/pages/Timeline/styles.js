@@ -15,6 +15,10 @@ export const Title = styled.h1`
     display: flex;
     justify-content: flex-start;
     margin: 53px 0px 43px;
+
+    @media (max-width: 600px) {
+        width: 100%;
+    }
 `
 
 export const Text = styled.h1`

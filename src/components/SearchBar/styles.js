@@ -8,13 +8,17 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     position: relative;
+    
+    @media (max-width: 840px) {
+        width: 60%;
+    }
 `
 
 export const SearchBarBox = styled.div`
     border-radius: 8px;
 
     input {
-        width: 563px;
+        width: 100%;
         height: 52px;        
         border-radius: 8px;
         background-color: #FFFFFF;
