@@ -6,7 +6,7 @@ export const Page = styled.div`
     display: flex;
     justify-content: space-between;
 
-    @media (max-width: 700px) {
+    @media (max-width: 1000px) {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -42,7 +42,7 @@ export const LeftSide = styled.div`
         padding-left: 50px;
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: 1000px) {
         width: 100vw;
         height: 175px;
         padding: 15px;
@@ -77,7 +77,7 @@ export const RightSide = styled.div`
         align-items: center;
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: 1000px) {
         width: 100vw;
         padding-top: 40px;
         justify-content: initial;
@@ -104,13 +104,16 @@ export const Input = styled.input`
         border: 2px solid #03AC00;
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: 1000px) {
         width: 330px;
         height: 55px;
 
         ::placeholder {
             font-size: 22px;
         }
+    }
+    @media (max-width: 330px) {
+        width: 300px;
     }
 	
 `
@@ -131,10 +134,13 @@ export const Button = styled.button`
 	cursor: pointer;
     transition: .2s;
 
-    @media (max-width: 700px) {
+    @media (max-width: 1000px) {
         width: 330px;
         height: 55px;
         font-size: 22px;
+    }
+    @media (max-width: 330px) {
+        width: 300px;
     }
 `
 
@@ -144,6 +150,7 @@ export const SignUpLink = styled(Link)`
     font-weight: 400;
     font-family: 'Lato', sans-serif;
     color: #FFFFFF;
+    text-align: center;
 
     @media (max-width: 600px) {
         font-size: 17px;

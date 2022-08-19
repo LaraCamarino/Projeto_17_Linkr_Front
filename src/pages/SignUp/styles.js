@@ -5,7 +5,8 @@ export const Page = styled.div`
     background-color: #151515;
     display: flex;
     justify-content: space-between;
-    @media (max-width: 700px) {
+
+    @media (max-width: 1000px) {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -35,10 +36,11 @@ export const LeftSide = styled.div`
         font-weight: 700;
         font-family: 'Oswald', sans-serif;
     }
+
     @media (max-width: 1090px) {
         padding-left: 50px;
     }
-    @media (max-width: 700px) {
+    @media (max-width: 1000px) {
         width: 100vw;
         height: 175px;
         padding: 15px;
@@ -64,13 +66,15 @@ export const RightSide = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
     form {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
     }
-    @media (max-width: 700px) {
+
+    @media (max-width: 1000px) {
         width: 100vw;
         padding-top: 40px;
         justify-content: initial;
@@ -96,12 +100,16 @@ export const Input = styled.input`
 	:valid {
         border: 2px solid #03AC00;
     }
-    @media (max-width: 700px) {
+    
+    @media (max-width: 1000px) {
         width: 330px;
         height: 55px;
         ::placeholder {
             font-size: 22px;
         }
+    }
+    @media (max-width: 330px) {
+        width: 300px;
     }
 	
 `
@@ -121,10 +129,14 @@ export const Button = styled.button`
 	align-items: center;
 	cursor: pointer;
     transition: .2s;
-    @media (max-width: 700px) {
+
+    @media (max-width: 1000px) {
         width: 330px;
         height: 55px;
         font-size: 22px;
+    }
+    @media (max-width: 330px) {
+        width: 300px;
     }
 `
 
@@ -134,7 +146,8 @@ export const SignInLink = styled(Link)`
     font-weight: 400;
     font-family: 'Lato', sans-serif;
     color: #FFFFFF;
-    @media (max-width: 700px) {
+
+    @media (max-width: 1000px) {
         font-size: 17px;
     }
 `

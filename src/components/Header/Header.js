@@ -56,7 +56,7 @@ export default function Header() {
         <>
             <HeaderContainer>
                 <Logo onClick={() => navigate("/timeline")}> linkr </Logo>
-                <SearchBar/>
+                <SearchBar />
                 <Box ref={boxRef} onClick={() => setOpenBox(!openBox)}>
                     {
                         !openBox ? <IoChevronDownOutline/> : <IoChevronUpOutline />

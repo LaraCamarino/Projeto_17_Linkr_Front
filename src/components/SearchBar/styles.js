@@ -12,6 +12,11 @@ export const Container = styled.div`
     @media (max-width: 840px) {
         width: 60%;
     }
+    @media (max-width: 600px) {
+        width: 90%;
+        position: absolute;
+        top: 82px;
+    }
 `
 
 export const SearchBarBox = styled.div`
@@ -41,7 +46,7 @@ export const SearchBarBox = styled.div`
         height: 21px;
         color: #C6C6C6;
         position: absolute;
-        top: 12px;
+        top: 15px;
         right: 12px;
     }
 `
