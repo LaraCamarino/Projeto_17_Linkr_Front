@@ -57,7 +57,7 @@ export default function UserPage() {
             <>
                 <Title>{user}'s posts</Title>
                 {
-                    userPosts.map((post, index) => <Post key={index} id={post.postId} username={post.username} userPicture={post.userPicture} text={post.text} likesCount={post.likesCount} link={post.link} linkTitle={post.linkTitle} linkDescription={post.linkDescription} linkImage={post.linkImage}
+                    userPosts.map((post, index) => <Post key={index} postId={post.postId} username={post.username} userPicture={post.userPicture} text={post.text} likesCount={post.likesCount} link={post.link} linkTitle={post.linkTitle} linkDescription={post.linkDescription} linkImage={post.linkImage}
                     authorId={post.userId} getAllPosts={getPostsByUserId} />)
                 }
             </>

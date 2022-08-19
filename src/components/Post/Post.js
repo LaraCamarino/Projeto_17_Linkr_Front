@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoHeartOutline, IoHeart } from "react-icons/io5";
 import { TiPencil } from "react-icons/ti/index.js";
@@ -8,9 +8,11 @@ import { TbTrash } from "react-icons/tb/index.js";
 import { PostContainer, LeftSide, ProfileImageBox, ProfileImage, LikesBox, LikesCount, RightSide, Top, Name, Icons, Middle, Hashtags, Bottom, LinkBox, LinkTittle, LinkDescription, Link, LinkImage, EditBox } from "./styles.js";
 import DeleteModal from "../Modal/DeleteModal.js";
 
-export default function Post({ id, username, userPicture, text, likesCount, link, linkTitle, linkDescription, linkImage, authorId, getAllPosts }) {
-    
+export default function Post({ postId, username, userPicture, text, likesCount, link, linkTitle, linkDescription, linkImage, authorId, getAllPosts }) {
+
     const navigate = useNavigate();
+
+    const userId = parseInt(localStorage.getItem("userId"));
 
     const [loading, setLoading] = useState(false);
     const [postWasLiked, setPostWasLiked] = useState(false);
@@ -35,7 +37,7 @@ export default function Post({ id, username, userPicture, text, likesCount, link
             event.preventDefault();
             setLoading(true);
 
-            const URL = `http://localhost:5000/posts/edit/${id}`;
+            const URL = `http://localhost:5000/posts/edit/${postId}`;
             const token = localStorage.getItem("token");
             const config = {
                 headers: {
@@ -63,12 +65,73 @@ export default function Post({ id, username, userPicture, text, likesCount, link
         }
     }
 
-    function likePost(id) {
-        setPostWasLiked(!postWasLiked);
+    function getLikesByPostId() {
+        const URL = `http://localhost:5000/likes/${postId}`;
+        const token = localStorage.getItem("token");
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        };
+
+        const promise = axios.get(URL, config);
+
+        promise.then(res => {
+            if (res.data.filter((item) => item.userId === userId).length) {
+                setPostWasLiked(true);
+            }
+        });
+        promise.catch(err => {
+            alert(err.response.data);
+        })
     }
 
+    useEffect(() => getLikesByPostId(), []);
+
+    function likePost(postId) {
+        const URL = "http://localhost:5000/likes";
+        const token = localStorage.getItem("token");
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        };
+        const body = {
+            postId,
+            userId
+        }
+
+        const promise = axios.post(URL, body, config);
+
+        promise.then(res => {
+            setPostWasLiked(true);
+        });
+        promise.catch(err => {
+            alert(err.response.data);
+        });
+    }
+
+    function dislikePost(postId) {
+        const URL = `http://localhost:5000/likes/${postId}`;
+        const token = localStorage.getItem("token");
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        };
+
+        const promise = axios.delete(URL, config);
+
+        promise.then(res => {
+            setPostWasLiked(false);
+        });
+        promise.catch(err => {
+            alert(err.response.data);
+        })
+    }
+
+
     function showIcons() {
-        const userId = parseInt(localStorage.getItem("userId"));
         if (authorId === userId) {
             return (
                 <>
@@ -91,9 +154,9 @@ export default function Post({ id, username, userPicture, text, likesCount, link
                     <LikesBox postWasLiked={postWasLiked}>
                         {
                             !postWasLiked ?
-                                <IoHeartOutline onClick={() => likePost(id)} />
+                                <IoHeartOutline onClick={() => likePost(postId)} />
                                 :
-                                <IoHeart onClick={() => likePost(id)} />
+                                <IoHeart onClick={() => dislikePost(postId)} />
                         }
                         {
                             likesCount ? <LikesCount>{likesCount} likes</LikesCount> : <></>
@@ -127,7 +190,7 @@ export default function Post({ id, username, userPicture, text, likesCount, link
                 </RightSide>
             </PostContainer>
             {
-                modalIsOpen ? <DeleteModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} postId={id} getAllPosts={getAllPosts} /> : <></>
+                modalIsOpen ? <DeleteModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} postId={postId} getAllPosts={getAllPosts} /> : <></>
             }
         </>
     )
