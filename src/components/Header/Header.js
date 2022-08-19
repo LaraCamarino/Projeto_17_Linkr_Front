@@ -17,7 +17,7 @@ export default function Header() {
     function logoutUser() {
         const token = localStorage.getItem("token");
 
-        const URL = "http://localhost:5000/sign-out";
+        const URL = "https://project-17-linkr-db.herokuapp.com/sign-out";
         const config = {
             headers: {
                 "Authorization": `Bearer ${token}`

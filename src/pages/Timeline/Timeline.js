@@ -15,7 +15,7 @@ export default function Timeline() {
     const [posts, setPosts] = useState([]);
 
     function getAllPosts() {
-        const URL = "http://localhost:5000/posts";
+        const URL = "https://project-17-linkr-db.herokuapp.com/posts";
         const token = localStorage.getItem("token");
         const config = {
             headers: {

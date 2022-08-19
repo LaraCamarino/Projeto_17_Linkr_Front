@@ -16,7 +16,7 @@ export default function SearchBar() {
     const [error, setError] = useState();
 
     function searchDatabase() {
-        const URL = `http://localhost:5000/search/${search}`;
+        const URL = `https://project-17-linkr-db.herokuapp.com/search/${search}`;
         const token = localStorage.getItem("token");
         const config = {
             headers: {

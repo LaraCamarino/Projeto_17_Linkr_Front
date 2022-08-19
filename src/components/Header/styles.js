@@ -14,6 +14,7 @@ export const Logo = styled.h1`
     color: #FFFFFF;
     display: flex;
     align-items: center;
+    cursor: pointer;
 `
 
 export const Box = styled.section`
@@ -22,6 +23,7 @@ export const Box = styled.section`
     align-items: center;
     color: white;
     font-size: 25px;
+    cursor: pointer;
 
     img, svg {
         pointer-events: none;
@@ -55,4 +57,5 @@ export const Text = styled.h1`
     font-weight: 700;
     font-size: 16px;
     color: #FFFFFF;
+    cursor: pointer;
 `

@@ -18,7 +18,7 @@ export default function PublishPost({ getAllPosts }) {
         event.preventDefault();
         setLoading(true);
 
-        const URL = "http://localhost:5000/publish";
+        const URL = "https://project-17-linkr-db.herokuapp.com/publish";
         const token = localStorage.getItem("token");
         const config = {
             headers: {

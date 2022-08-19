@@ -16,7 +16,7 @@ export default function DeleteModal({ modalIsOpen, setModalIsOpen, postId, getAl
     function deletePost() {
         setLoading(true);
 
-        const URL = `http://localhost:5000/posts/delete/${postId}`;
+        const URL = `https://project-17-linkr-db.herokuapp.com/posts/delete/${postId}`;
         const token = localStorage.getItem("token");
         const config = {
             headers: {

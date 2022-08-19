@@ -17,7 +17,7 @@ export default function UserPage() {
     const [userPosts, setUserPosts] = useState([]);
 
     function getPostsByUserId() {
-        const URL = `http://localhost:5000/posts/${id}`;
+        const URL = `https://project-17-linkr-db.herokuapp.com/posts/${id}`;
 
         const promise = axios.get(URL);
         setLoading(true);

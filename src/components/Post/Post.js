@@ -40,7 +40,7 @@ export default function Post({ postId, username, userPicture, text, link, linkTi
             event.preventDefault();
             setLoading(true);
 
-            const URL = `http://localhost:5000/posts/edit/${postId}`;
+            const URL = `https://project-17-linkr-db.herokuapp.com/posts/edit/${postId}`;
             const token = localStorage.getItem("token");
             const config = {
                 headers: {
@@ -69,7 +69,7 @@ export default function Post({ postId, username, userPicture, text, link, linkTi
     }
 
     function getLikesByPostId() {
-        const URL = `http://localhost:5000/likes/${postId}`;
+        const URL = `https://project-17-linkr-db.herokuapp.com/likes/${postId}`;
         const token = localStorage.getItem("token");
         const config = {
             headers: {
@@ -97,7 +97,7 @@ export default function Post({ postId, username, userPicture, text, link, linkTi
     useEffect(() => getLikesByPostId(), [postWasLiked]);
 
     function likePost(postId) {
-        const URL = "http://localhost:5000/likes";
+        const URL = "https://project-17-linkr-db.herokuapp.com/likes";
         const token = localStorage.getItem("token");
         const config = {
             headers: {
@@ -120,7 +120,7 @@ export default function Post({ postId, username, userPicture, text, link, linkTi
     }
 
     function dislikePost(postId) {
-        const URL = `http://localhost:5000/likes/${postId}`;
+        const URL = `https://project-17-linkr-db.herokuapp.com/likes/${postId}`;
         const token = localStorage.getItem("token");
         const config = {
             headers: {
@@ -152,7 +152,6 @@ export default function Post({ postId, username, userPicture, text, link, linkTi
     }
 
     function createLikeTooltip(data) {
-        console.log(data)
         let text = "";
         let likes = data.filter((item) => item.userId !== userId);
 
@@ -230,7 +229,7 @@ export default function Post({ postId, username, userPicture, text, link, linkTi
                                 :
                                 <EditBox type="text" disabled={loading} value={newText} onChange={(e) => setNewText(e.target.value)} autoFocus onFocus={focusOnTextareaEnd} onKeyDown={editPost} ></EditBox>
                         }
-                        <Hashtags> #react #material</Hashtags>
+                        <Hashtags></Hashtags>
                     </Middle>
                     <Bottom onClick={() => window.open(link)}>
                         <LinkBox>
